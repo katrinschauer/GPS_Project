@@ -23,11 +23,14 @@ public class Main2Activity extends AppCompatActivity {
         {
             arr= (ArrayList<Data>) params.get("Liste");
         }
+        displayItems();
 
 
     }
 
     public void displayItems()
     {
+        ArrayAdapter<Data> adapter=new ArrayAdapter<Data>(this,android.R.layout.simple_list_item_1,arr);
+        listView.setAdapter(adapter);
     }
 }
