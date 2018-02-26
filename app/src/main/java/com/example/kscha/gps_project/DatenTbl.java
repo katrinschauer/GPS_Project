@@ -9,23 +9,23 @@ public class DatenTbl {
 
     public final static String longitude="longitude";
     public final static String latitude="latitude";
-    public final static String date="date";
-    public static final String [] ALL_COLUMNS=new String [] {longitude,latitude,date};
+    public final static String dateandtime="dateandtime";
+    public static final String [] ALL_COLUMNS=new String [] {longitude,latitude,dateandtime};
 
     public static final String SQL_DROP="DROP TABLE IF EXISTS"+TABLE_NAME;
     public static final String SQL_CREATE=
-            "CREATE TABLE"+TABLE_NAME+
+            "CREATE TABLE "+TABLE_NAME+
                     "("+
-                    longitude+"REAL,"+
-                    latitude+"REAL,"+
-                    date+"REAL"+
-                    ")";
+                    longitude+" REAL,"+
+                    latitude+" REAL,"+
+                    dateandtime+" TEXT PRIMARY KEY"+
+                    ");";
 
     public static final String STMT_DELETE="DELETE FROM"+TABLE_NAME;
     public static final String STMT_INSERT=
-            "INSERT INTO"+TABLE_NAME+
-                    "("+longitude+","+latitude+","+date+")"+
-                    "VALUES (?,?,?)";
+            "INSERT INTO "+TABLE_NAME+
+                    "("+longitude+","+latitude+","+dateandtime+")"+
+                    " VALUES (?,?,?)";
 
 
 }

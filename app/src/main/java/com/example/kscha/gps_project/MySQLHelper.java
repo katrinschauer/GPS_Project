@@ -14,7 +14,7 @@ public class MySQLHelper extends SQLiteOpenHelper{
 
     private final static String DB_NAME="daten.db";
     private final static int DB_VERSION=1;
-    public MySQLHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public MySQLHelper(Context context, String name, int version) {
         super(context, name, null, version);
     }
     public MySQLHelper(Context context){
@@ -29,6 +29,8 @@ public class MySQLHelper extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL(DatenTbl.SQL_DROP);
+        sqLiteDatabase.execSQL(DatenTbl.SQL_CREATE);
+
     }
 
 

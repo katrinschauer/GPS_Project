@@ -9,17 +9,14 @@ import java.io.Serializable;
  */
 
 public class Data implements Serializable {
-    Double latitude;
-    Double longitude;
+    String latitude;
+    String longitude;
     String myDate;
 
-    public Data(Double latitude, Double longitude, String myDate) {
+    public Data(String latitude, String longitude, String myDate) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.myDate = myDate;
-    }
-
-    public Data() {
     }
 
     @Override
@@ -29,11 +26,11 @@ public class Data implements Serializable {
                 "myDate=" + myDate + '\'';
     }
 
-    public Double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public Double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 

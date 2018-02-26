@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     TextView myDate;
     private final static String DB_NAME="daten.db";
     SQLiteDatabase dbl;
-    private final static int DB_VERSION=1;
+    private final static int DB_VERSION=3;
 
 
     @Override
@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         });
 
         locMan = (LocationManager) getSystemService(LOCATION_SERVICE);
-        MySQLHelper helper=new MySQLHelper(this,DB_NAME,null,DB_VERSION);
-        helper.getReadableDatabase();
+        MySQLHelper helper=new MySQLHelper(this,DB_NAME,DB_VERSION);
+        dbl=helper.getReadableDatabase();
     }
 
     public void Anzeige() {
@@ -97,13 +97,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         myDate.setText(df.format(new Date()));
         Data d=new Data(longitude.getText().toString(),latitude.getText().toString(),myDate.getText().toString());
+        einschreiben(d);
 
 
     }
 
     private void einschreiben(Data d)
     {
-        dbl.execSQL(DatenTbl.STMT_INSERT,new String []{d.getLatitude(),d.getLongitude(),d.getMyDate()});
+        dbl.execSQL(DatenTbl.STMT_INSERT,new String []{d.getLongitude(),d.getLatitude(),d.getMyDate()});
     }
 
 
@@ -122,9 +123,4 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void onProviderDisabled(String s) {
 
     }
-
-
-
-
-
 }
