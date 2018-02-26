@@ -3,6 +3,7 @@ package com.example.kscha.gps_project;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -23,14 +24,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     TextView latitude;
     TextView longitude;
     TextView myDate;
-    private final static String DB_NAME="gps.db";
-    ArrayList<Data> arr;
+    private final static String DB_NAME="daten.db";
+    SQLiteDatabase dbl;
+    private final static int DB_VERSION=1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.newlayout);
-        arr=new ArrayList<>();
         buttonAnzeigen = (Button) findViewById(R.id.buttonAnzeigen);
         latitude=(TextView) findViewById(R.id.latitude);
         longitude=(TextView) findViewById(R.id.longitude);
@@ -43,11 +45,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         });
 
         locMan = (LocationManager) getSystemService(LOCATION_SERVICE);
+        MySQLHelper helper=new MySQLHelper(this,DB_NAME,null,DB_VERSION);
+        helper.getReadableDatabase();
     }
 
     public void Anzeige() {
         Intent intent = new Intent(this, Main2Activity.class);
-        intent.putExtra("Liste",arr);
         startActivity(intent);
     }
 
@@ -93,9 +96,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         longitude.setText(String.format("%.4f",wertLongitude));
         SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         myDate.setText(df.format(new Date()));
-        Data d=new Data(latitude.getText().toString(),longitude.getText().toString(),myDate.getText().toString());
-        arr.add(d);
+        Data d=new Data(longitude.getText().toString(),latitude.getText().toString(),myDate.getText().toString());
 
+
+    }
+
+    private void einschreiben(Data d)
+    {
+        dbl.execSQL(DatenTbl.STMT_INSERT,new String []{d.getLatitude(),d.getLongitude(),d.getMyDate()});
     }
 
 

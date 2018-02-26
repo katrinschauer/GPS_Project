@@ -19,10 +19,25 @@ public class Data implements Serializable {
         this.myDate = myDate;
     }
 
+    public Data() {
+    }
+
     @Override
     public String toString() {
         return "longitude="+longitude  + '\'' +
                 "latitude=" + latitude + '\'' +
                 "myDate=" + myDate + '\'';
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public String getMyDate() {
+        return myDate;
     }
 }
