@@ -44,8 +44,8 @@ public class Main2Activity extends AppCompatActivity {
 
         while(rows.moveToNext())
         {
-            String longitude = rows.getString(0);
-            String latitude = rows.getString(1);
+            Double longitude = rows.getDouble(0);
+            Double latitude = rows.getDouble(1);
             String date = rows.getString(2);
             Data data = new Data(longitude,latitude,date);
             arr.add(data);
